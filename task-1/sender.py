@@ -1,6 +1,8 @@
 import struct
 import serial
 
+port = "\\\\.\\CNCB0" # port to write to
+
 def sendLine(temps, pres, gasres, port):
   """
   temps is a list of 3 temperatures, -30 to 80
@@ -27,5 +29,5 @@ def sendLine(temps, pres, gasres, port):
 
   print("sent: \t\t", data)
 
-sendLine([127, 1, 1], [1, 2**16 - 1], [2**32 -1, 16 + 8 + 256], "\\\\.\\CNCB0")
-
+sendLine([127, 1, 1], [1, 2**16 - 1], [2**32 -1, 16 + 8 + 256], port)
+sendLine([-30, 0, 100], [0, 2**16 - 1], [2**32 -1, 0], port)
