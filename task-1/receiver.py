@@ -1,15 +1,16 @@
 import serial
 import struct
+from pynput import keyboard
+from sys import exit
 
 
 port = "\\\\.\\CNCA0" # port to read from
+stopProgram = False
 
 def readLine(port):
   """
   reads 16 bytes from port
-   - if less than 16 bytes are read, returns a tuple with 1 element, False
-
-  
+   - if less than 16 bytes are read, returns False
   """
   with serial.Serial(port, timeout=2) as s:
     print("\n>>> receiving from ", port, " ...")
@@ -17,7 +18,7 @@ def readLine(port):
     print("received: ", dataBin)
 
   if len(dataBin) != 16:
-    return (False,)
+    return False
   
   data = struct.unpack("<bbbHHIIx", dataBin)
 
@@ -30,6 +31,18 @@ def readLine(port):
   print("unpacked to: ", dataDict)
   return dataDict
 
+def onPress(key):
+  if key == keyboard.Key.space:
+    return False 
+
+listener = keyboard.Listener(on_press=onPress) 
+listener.start()
+
 while True:
   readLine(port)
+  if not listener.is_alive():
+    print("\n>>> Space key pressed, exiting program\n")
+    break
+
+listener.join()
 
