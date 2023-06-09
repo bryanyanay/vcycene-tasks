@@ -1,7 +1,7 @@
 import serial
 import struct
 from pynput import keyboard
-from datetime import date
+from datetime import datetime
 
 # don't use pynput? we may want to switch to the keyboard package, apparently this one only detects spaces if the correct terminal window is in focus
 
@@ -46,7 +46,7 @@ def writeLine(filePath, data):
   Data from the line is taken from the dictionary
   """
   with open(filePath, "a") as file:
-    file.write(f'{date.today()}-{data["temps"][0]},{data["temps"][1]},{data["temps"][2]},{data["pres"][0]},{data["pres"][1]},{data["gasres"][0]},{data["gasres"][1]}\n')
+    file.write(f'{datetime.now()}-{data["temps"][0]},{data["temps"][1]},{data["temps"][2]},{data["pres"][0]},{data["pres"][1]},{data["gasres"][0]},{data["gasres"][1]}\n')
 
 def onPress(key):
   if key == keyboard.Key.space:
