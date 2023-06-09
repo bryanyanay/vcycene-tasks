@@ -25,6 +25,7 @@ def sendLine(temps, pres, gasres, port):
 
   data = tempBin + presBin + gasresBin + b'\00'
   with serial.Serial(port) as s:
+    s.set_buffer_size(rx_size=12800, tx_size=12800)
     s.write(data)
 
   print("sent: \t\t", data)
