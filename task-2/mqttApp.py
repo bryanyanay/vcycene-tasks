@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5.QtWidgets import (QApplication, QMainWindow, QMessageBox)
+from PyQt5.QtWidgets import (QApplication, QMainWindow)
 from mqttGUI import Ui_MainWindow
 
 import paho.mqtt.client as mqtt
